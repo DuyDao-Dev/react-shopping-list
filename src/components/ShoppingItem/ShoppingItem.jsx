@@ -1,9 +1,10 @@
 import './ShoppingItem.css';
+import axios from 'axios';
 
 function ShoppingItem ({item, getItems}) {
     const handleBuy = () => {
         console.log('bought item:', item.id);
-        axios.put(`/item/${item.id}`)
+        axios.put(`/list/${item.id}`)
           .then(response => {
             //Once item has been updated, refresh items list
             getItems();
@@ -16,7 +17,7 @@ function ShoppingItem ({item, getItems}) {
 
     const handleRemove = () => {
         console.log('deleting item:', item.id);
-        axios.delete(`/item/${item.id}`)
+        axios.delete(`/list/${item.id}`)
           .then(response => {
             //Once item has been removed, refresh items list
             getItems();
@@ -30,7 +31,7 @@ function ShoppingItem ({item, getItems}) {
     return (
       <>
         <section className="shoppingItem">
-            <div>{item.item}</div>
+            <div>{item.name}</div>
             <div>{item.quantity} {item.unit}</div>
             {/* conditional render:
             if item.isPurchased is true, show Purchased

@@ -1,11 +1,32 @@
 import React from 'react';
+import axios from 'axios';
 
 import Header from '../Header/Header.jsx';
 import './App.css';
+
+import AddItemForm from '../AddItemForm/AddItemForm.js';
 import ShoppingItem from '../ShoppingItem/ShoppingItem';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
 function App() {
+
+    //On load, get guests
+    useEffect(() => {
+        getItem()
+    }, [])
+    //POST API
+    const addItem = (newItem) => {
+        axios.post('/list', newItem )
+        .then(response => {
+                console.log('Item added successfully');
+            /* Here should be the function to get items so it can update DOM*/
+            getItem()
+        }).catch(err => {
+            alert('Error Adding Item');
+            console.log(err);
+        })
+    };
+
     let [newItem, setNewItem] = useState('');
     let [itemList, setItemList] = useState([]);
 
@@ -33,8 +54,9 @@ function App() {
             <Header />
             <main>
                 <p>Under Construction...</p>
+                <AddItemForm addItem={addItem}/>
                 {itemList.map(item =>
-                    (<ShoppingItem item={item}/>)
+                    (<ShoppingItem key={item.id} item={item} getItems={getItem}/>)
                 )}
             </main>
         </div>
