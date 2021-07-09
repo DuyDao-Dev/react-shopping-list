@@ -8,17 +8,17 @@ import AddItemForm from '../AddItemForm/AddItemForm.js';
 
 function App() {
 
+    //POST API
     const addItem = (newItem) => {
         axios.post('/list', newItem )
-          .then(response => {
-              console.log('Item added successfully');
-            /* Here should be the function to get items so it can update DOm*/
-          })
-          .catch(err => {
+        .then(response => {
+                console.log('Item added successfully');
+            /* Here should be the function to get items so it can update DOM*/
+        }).catch(err => {
             alert('Error Adding Item');
             console.log(err);
-          })
-      };
+        })
+    };
 
 
     return (
