@@ -13,7 +13,7 @@ function ShoppingItem ({item, getItems}) {
             console.log(err);
           })
     } //end handleBuy
-    
+
     const handleRemove = () => {
         console.log('deleting item:', item.id);
         axios.delete(`/item/${item.id}`)
@@ -48,15 +48,3 @@ function ShoppingItem ({item, getItems}) {
   }
   
   export default ShoppingItem;
-  
-
-
-
-
-
-
-// Shopping item - BENJI
-// buy
-// PUT: /list/:id
-// remove
-// DELETE: /list/:id

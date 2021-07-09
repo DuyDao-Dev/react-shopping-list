@@ -4,6 +4,20 @@ const pool = require('../modules/pool.js');
 
 // TODO - Add routes here...
 
+// GET routes
+router.get ('/', (req,res) => {
+    const sqlText = `SELECT * FROM items ORDER BY name`;
+    pool.query(sqlText)
+        .then((result) => {
+            console.log(`Got stuff back from the database`, result);
+            res.send(result.rows);
+        })
+        .catch((error) => {
+            console.log(`Error making database query ${sqlText}`, error);
+            res.sendStatus(500); // Good server always responds
+        })
+})
+
 // DELETE routes
 router.delete('/:id', (req, res) => {
     const id = req.params.id;
@@ -25,7 +39,7 @@ router.delete('/:id', (req, res) => {
             res.sendStatus(500); // Good server always responds
         })
     } else {
-        res.sendStatus(500).send('no id');
+            res.sendStatus(500).send('no id');
     }
 })
 
@@ -54,5 +68,6 @@ router.put('/:id', (req, res) => {
         res.sendStatus(500).send('no id');
     }
 })
+
 
 module.exports = router;
