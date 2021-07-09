@@ -2,6 +2,19 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool.js');
 
+router.get ('/'), (req,res) => {
+    const sqlText = `SELECT * FROM items ORDER BY name`;
+pool.query(sqlText)
+    .then((result) => {
+        console.log(`Got stuff back from the database`, result);
+        res.send(result.rows);
+    })
+    .catch((error) => {
+        console.log(`Error making database query ${sqlText}`, error);
+        res.sendStatus(500); // Good server always responds
+    })
+} 
+
 router.delete('/all', (req,res) => {
     const queryText = `DELETE FROM items`;
 
@@ -16,13 +29,10 @@ router.delete('/all', (req,res) => {
     });
 });
 
-
 router.put('/all', (req, res) => {
-
     let putQuery = `
     UPDATE  items
     SET "isPurchased" = '0';`;
-//need to figure out how to update description.
     pool.query(putQuery)
     .then(dbResponse => {
         console.log('Updated list with PUT', dbResponse);
