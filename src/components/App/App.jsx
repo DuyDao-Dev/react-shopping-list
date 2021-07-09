@@ -5,7 +5,7 @@ import './App.css';
 import {useState} from 'react';
 
 let [newItem, setNewItem] = useState('');
-let [newItemList, setNewItemList] = ([]);
+let [newItemList, setNewItemList] = useState([]);
 
 function App() {
 

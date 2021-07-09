@@ -15,3 +15,5 @@ app.use('/list', listRouter);
 app.listen(PORT,  () => {
     console.log('Listening on port: ', PORT);
 });
+
+app.get('/list', listRouter);
