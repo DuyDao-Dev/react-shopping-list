@@ -16,6 +16,22 @@ router.delete('/all', (req,res) => {
     });
 });
 
+
+router.put('/all', (req, res) => {
+
+    let putQuery = `
+    UPDATE  items
+    SET "isPurchased" = '0';`;
+//need to figure out how to update description.
+    pool.query(putQuery)
+    .then(dbResponse => {
+        console.log('Updated list with PUT', dbResponse);
+        res.sendStatus(202);
+    })
+    .catch(err => {
+        console.log('There was an error updating list', err);
+        res.sendStatus(500);
+    })
+});
+
 module.exports = router;
-
-
