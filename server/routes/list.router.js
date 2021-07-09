@@ -17,6 +17,18 @@ router.post('/', (req, res) =>{
         res.sendStatus(500);
     })
 });
+router.get ('/'), (req,res) => {
+    const sqlText = `SELECT * FROM items ORDER BY name`;
+pool.query(sqlText)
+    .then((result) => {
+        console.log(`Got stuff back from the database`, result);
+        res.send(result.rows);
+    })
+    .catch((error) => {
+        console.log(`Error making database query ${sqlText}`, error);
+        res.sendStatus(500); // Good server always responds
+    })
+} 
 
 router.delete('/all', (req,res) => {
     const queryText = `DELETE FROM items`;
@@ -30,6 +42,21 @@ router.delete('/all', (req,res) => {
       console.log(`Could not delete task with id ${items}.`, error);
       res.sendStatus(500);
     });
+});
+
+router.put('/all', (req, res) => {
+    let putQuery = `
+    UPDATE  items
+    SET "isPurchased" = '0';`;
+    pool.query(putQuery)
+    .then(dbResponse => {
+        console.log('Updated list with PUT', dbResponse);
+        res.sendStatus(202);
+    })
+    .catch(err => {
+        console.log('There was an error updating list', err);
+        res.sendStatus(500);
+    })
 });
 
 // GET routes
@@ -96,6 +123,6 @@ router.put('/:id', (req, res) => {
         res.sendStatus(500).send('no id');
     }
 })
-module.exports = router;
 
+module.exports = router;
 
