@@ -5,10 +5,17 @@ import './App.css';
 import ShoppingItem from '../ShoppingItem/ShoppingItem';
 import {useState} from 'react';
 
-let [newItem, setNewItem] = useState('');
-let [newItemList, setNewItemList] = useState([]);
-
 function App() {
+
+    const clearItemsFromDb = (shoppingList) => {
+        console.log('clear list', shoppingList);
+        axios.delete(`/list/${shoppingList}`)
+            .then(response => {
+                setShoppingList('');
+            })
+    }
+    let [newItem, setNewItem] = useState('');
+    let [newItemList, setNewItemList] = useState([]);
 
     const getItem = () => {
         axios.get('/list')
