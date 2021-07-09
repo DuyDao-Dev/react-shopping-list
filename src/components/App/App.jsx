@@ -11,6 +11,7 @@ function App() {
             <Header />
             <main>
                 <p>Under Construction...</p>
+                <ShoppingItem item={item}/>
             </main>
         </div>
     );
