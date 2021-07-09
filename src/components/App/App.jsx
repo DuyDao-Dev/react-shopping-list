@@ -6,6 +6,8 @@ import ShoppingItem from '../ShoppingItem/ShoppingItem';
 import {useState} from 'react';
 
 function App() {
+    let [newItem, setNewItem] = useState('');
+    let [itemList, setItemList] = useState([]);
 
     const clearItemsFromDb = (shoppingList) => {
         console.log('clear list', shoppingList);
@@ -14,13 +16,11 @@ function App() {
                 setShoppingList('');
             })
     }
-    let [newItem, setNewItem] = useState('');
-    let [newItemList, setNewItemList] = useState([]);
 
     const getItem = () => {
         axios.get('/list')
         .then(response => {
-            setNewItemList(response.data);
+            setItemList(response.data);
         })
         .catch(error => {
             alert (`Error getting items!`, error);
@@ -33,7 +33,9 @@ function App() {
             <Header />
             <main>
                 <p>Under Construction...</p>
-                <ShoppingItem item={item}/>
+                {itemList.map(item =>
+                    (<ShoppingItem item={item}/>)
+                )}
             </main>
         </div>
     );

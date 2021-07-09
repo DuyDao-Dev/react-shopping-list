@@ -1,4 +1,4 @@
-import '.ShoppingItem.css';
+import './ShoppingItem.css';
 
 function ShoppingItem ({item, getItems}) {
     const handleBuy = () => {
