@@ -4,6 +4,7 @@ import axios from 'axios';
 import Header from '../Header/Header.jsx';
 import './App.css';
 
+import ShoppingList from '../ShoppingList/ShoppingList.jsx';
 import AddItemForm from '../AddItemForm/AddItemForm.js';
 import ShoppingItem from '../ShoppingItem/ShoppingItem';
 import {useState, useEffect} from 'react';
@@ -55,6 +56,7 @@ function App() {
             <main>
                 <p>Under Construction...</p>
                 <AddItemForm addItem={addItem}/>
+                <ShoppingList getItem={getItem}/>
                 {itemList.map(item =>
                     (<ShoppingItem key={item.id} item={item} getItems={getItem}/>)
                 )}
